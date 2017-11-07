@@ -11,9 +11,11 @@ app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-    req.session.count = 0; 
+    if(!req.session.count){
+        req.session.count = 0;
+    }
     req.session.count++; 
-    res.render("index");
+    res.render("index", { counter: req.session.count });
 })
 
 app.listen(5000,function(){
